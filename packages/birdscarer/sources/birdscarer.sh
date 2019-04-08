@@ -2,10 +2,15 @@
 
 APPNAME="$(basename $0 .sh)"
 HLASY_DIR="/usr/share/birdscarer/voices"
-NUM_SONGS=$(ls $HLASY_DIR/*.mp3 | wc -l)
+DEFAULT_MODE="venda"
 
-PLAY_MIN_TIME=180
-PLAY_MAX_TIME=900
+# Nastaveni rezimu cinnosti
+
+if [ -z "$1" ]; then
+	MODE=$DEFAULT_MODE
+else
+	MODE="$1"
+fi
 
 function gen_number {
   local START=$1
@@ -20,20 +25,54 @@ function play_sound {
 }
 
 
-while true
-do
-  PLAY_DURATION="00:00:$(gen_number 15 40)"
-  SONG_NUMBER=$(gen_number 1 $NUM_SONGS)
-  SONG_FILE=$(ls $HLASY_DIR/$SONG_NUMBER*.mp3)
-  logger -t $APPNAME "Voice file: $SONG_FILE"
-  logger -t $APPNAME "Play duration: $PLAY_DURATION s"
+if [ "$MODE" == "auto" ]; then
 
-  play_sound $SONG_FILE
+logger -t $APPNAME "Mode AUTO"
 
-  SLEEP_TIME=$(gen_number $PLAY_MIN_TIME $PLAY_MAX_TIME)
-  logger -t spackoplas "Sleep time: $SLEEP_TIME sec."
-  sleep $SLEEP_TIME
+PLAY_MIN_TIME=180
+PLAY_MAX_TIME=900
+NUM_SONGS=$(ls $HLASY_DIR/*.mp3 | wc -l)
 
-done
+	while true
+	do
+	  PLAY_DURATION="00:00:$(gen_number 15 40)"
+	  SONG_NUMBER=$(gen_number 1 $NUM_SONGS)
+	  SONG_FILE=$(ls $HLASY_DIR/$SONG_NUMBER*.mp3)
+	  logger -t $APPNAME "Voice file: $SONG_FILE"
+	  logger -t $APPNAME "Play duration: $PLAY_DURATION s"
+
+	  play_sound $SONG_FILE
+
+	  SLEEP_TIME=$(gen_number $PLAY_MIN_TIME $PLAY_MAX_TIME)
+	  logger -t spackoplas "Sleep time: $SLEEP_TIME sec."
+	  sleep $SLEEP_TIME
+
+	done
+
+elif [ "$MODE" == "venda" ]; then
+
+logger -t $APPNAME "Mode VENDA"
+PLAY_MIN_TIME=20
+PLAY_MAX_TIME=120
+SONG_FILE="$HLASY_DIR/2_motak_luzni.mp3"
+
+        while true
+        do
+          PLAY_DURATION="00:00:$(gen_number 15 40)"
+          logger -t $APPNAME "Voice file: $SONG_FILE"
+          logger -t $APPNAME "Play duration: $PLAY_DURATION s"
+
+          play_sound $SONG_FILE
+
+          SLEEP_TIME=$(gen_number $PLAY_MIN_TIME $PLAY_MAX_TIME)
+          logger -t spackoplas "Sleep time: $SLEEP_TIME sec."
+          sleep $SLEEP_TIME
+
+        done
+else
+	logger -t $APPNAME "Wrong choice"
+	exit 1
+
+fi
 
 exit 0
