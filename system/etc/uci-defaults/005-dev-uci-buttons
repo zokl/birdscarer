@@ -1,0 +1,30 @@
+#!/bin/sh
+#
+# Copyright (C) 2016 DEVELICT Solutions s.r.o.
+#
+
+. /lib/functions.sh
+. /lib/functions/uci-defaults.sh
+
+
+develict_adjust_buttons_settings() {
+        uci batch <<-EOF
+                add system button
+                set system.@button[0].button='BTN_0'
+                set system.@button[0].action='released'
+                set system.@button[0].handler='reboot'
+                set system.@button[0].min='0'
+                set system.@button[0].max='5'
+                add system button
+                set system.@button[1].button='BTN_0'
+                set system.@button[1].action='released'
+                set system.@button[1].handler='firstrun -y && reboot'
+                set system.@button[1].min='5'
+                set system.@button[1].max='30'
+                commit system
+EOF
+}
+
+#develict_adjust_buttons_settings
+
+exit 0

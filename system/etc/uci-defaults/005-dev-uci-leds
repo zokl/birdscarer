@@ -1,0 +1,47 @@
+#!/bin/sh
+#
+# Copyright (C) 2018 DEVELICT Solutions s.r.o.
+#
+
+. /lib/functions.sh
+. /lib/functions/uci-defaults.sh
+
+
+develict_adjust_leds_settings() {
+
+  uci -q show system.@led[0]|| {
+    uci add system led
+    uci set system.@led[0].default='0'
+    uci set system.@led[0].name='USER'
+    uci set system.@led[0].sysfs='rt2800soc-phy0::radio'
+    uci set system.@led[0].trigger='heartbeat'
+    uci commit system
+  }
+
+  uci -q show system.@led[1] || {
+    uci add system led
+    uci set system.@led[1].default='0'
+    uci set system.@led[1].name='eth0'
+    uci set system.@led[1].sysfs='deveplatform:orange:ETH0'
+    uci set system.@led[1].trigger='netdev'
+    uci set system.@led[1].mode='tx rx'
+    uci set system.@led[1].dev='eth0.0'
+    uci commit system
+  }
+
+  uci -q show system.@led[2] || {
+    uci add system led
+    uci set system.@led[2].default='0'
+    uci set system.@led[2].name='eth4'
+    uci set system.@led[2].sysfs='deveplatform:orange:ETH4'
+    uci set system.@led[2].trigger='netdev'
+    uci set system.@led[2].mode='tx rx'
+    uci set system.@led[2].dev='eth0.4'
+    uci commit system
+  }
+
+}
+
+develict_adjust_leds_settings
+
+exit 0

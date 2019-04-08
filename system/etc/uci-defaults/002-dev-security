@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# Copyright (C) 2016 DEVELICT Solutions s.r.o.
+#
+
+. /lib/functions.sh
+. /lib/functions/uci-defaults.sh
+
+develict_password_change() {
+
+    # Root password changer
+    USER="root"
+    PASSWORD="spackoplas"
+
+    passwd -d $USER
+    echo -e "$PASSWORD\n$PASSWORD" | passwd $USER
+
+}
+
+develict_password_change
+
+exit 0

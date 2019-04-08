@@ -1,0 +1,48 @@
+#!/bin/sh
+#
+# Copyright (C) 2018 DEVELICT Solutions s.r.o.
+
+. /lib/functions.sh
+. /lib/functions/uci-defaults.sh
+
+attcontrol_adjust_system_settings() {
+        uci batch <<-EOF
+                set system.@system[0].hostname='Spackoplas'
+                set system.@system[0].timezone='UTC'
+                set system.@system[0].ttylogin='1'
+                commit system
+EOF
+}
+
+attcontrol_rc_local() {
+    local rc_local="/etc/rc.local"
+
+    cat > $rc_local <<-EOF
+# Prepnuti rezimu CPU do auto clock
+#mmio 0x10000044 0x80020133
+
+# CPU AUTO CLK EN = 1 = Enable
+# CLK ADJ STEP = 00010 = 2
+# UTL PERIOD = 0001 = 1
+# UTL HI MARK = 11 = 87.5%
+# UTL LO MARK = 11 = 50%
+
+# Vypnuti HW switche (cca 16 mA per port)
+#ifconfig eth0 down
+#swconfig dev switch0 port 0 set disable 1
+swconfig dev switch0 port 1 set disable 1
+swconfig dev switch0 port 2 set disable 1
+swconfig dev switch0 port 3 set disable 1
+#swconfig dev switch0 port 4 set disable 1
+swconfig dev switch0 port 5 set disable 1
+#swconfig dev switch0 port 6 set disable 1
+swconfig dev switch0 set apply
+
+exit 0
+EOF
+}
+
+attcontrol_adjust_system_settings
+attcontrol_rc_local
+
+exit 0

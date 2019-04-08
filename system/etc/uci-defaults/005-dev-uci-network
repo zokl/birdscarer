@@ -1,0 +1,24 @@
+#!/bin/sh
+#
+# Copyright (C) 2018 DEVELICT Solutions s.r.o.
+#
+
+. /lib/functions.sh
+. /lib/functions/uci-defaults.sh
+
+
+rt5350f_adjust_mac_address() {
+
+  uci -q show network.lan.macaddr || {
+
+    MACADDR=$(cat /sys/class/net/eth0/address)
+
+    uci set network.lan.macaddr=$MACADDR
+    uci commit network
+  }
+
+}
+
+rt5350f_adjust_mac_address
+
+exit 0
