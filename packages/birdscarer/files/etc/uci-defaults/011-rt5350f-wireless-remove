@@ -1,7 +1,0 @@
-#!/bin/sh
-#
-# Copyright (C) 2018 DEVELICT Solutions s.r.o.
-#
-
-# Remove wireless configuration
-rm -f /etc/config/wireless

@@ -9,15 +9,9 @@ config globals 'globals'
 
 config interface 'lan'
 	option type 'bridge'
-	option ifname 'eth0.0 eth0.4'
+	option ifname 'eth0.0 eth0.4 wlan0'
 	option proto 'static'
 	option ipaddr '192.168.1.1/24'
-
-	config interface 'wlan'
-	option ifname 'wlan0'
-	option proto 'none'
-	option ipaddr '192.168.2.1/24'
-
 
 config switch
 	option name 'rt305x'

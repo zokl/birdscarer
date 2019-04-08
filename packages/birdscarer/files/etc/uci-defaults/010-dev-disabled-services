@@ -7,4 +7,4 @@
 /etc/init.d/firewall disable
 
 # Dnsmasq disable
-/etc/init.d/dnsmasq disable
+#/etc/init.d/dnsmasq disable
