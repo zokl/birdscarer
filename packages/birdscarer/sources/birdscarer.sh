@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 APPNAME="$(basename $0 .sh)"
 HLASY_DIR="/usr/share/birdscarer/voices"

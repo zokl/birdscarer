@@ -26,16 +26,16 @@ define Build/Compile
 endef
 
 define Package/$(PKG_NAME)/install
-	[ -d ./system/etc ] && $(CP) ./system/etc/* $(1)/
+	[ -d ./files/etc ] && $(CP) ./files/* $(1)/
 
+	$(INSTALL_DIR) $(1)/usr/share/birdscarer/
 	$(CP) ./sources/voices $(1)/usr/share/birdscarer/
 
 	$(INSTALL_DIR) $(1)/usr/sbin/
-	$(INSTALL_BIN) ./soures/birdscarer.sh $(1)/usr/sbin/birdscarer
+	$(INSTALL_BIN) ./sources/birdscarer.sh $(1)/usr/sbin/birdscarer
 
 	$(INSTALL_DIR) $(1)/etc/init.d
-	$(INSTALL_BIN) ./system/init/$(PKG_NAME).init $(1)/etc/init.d/$(PKG_NAME)
-
+	$(INSTALL_BIN) ./init/$(PKG_NAME).init $(1)/etc/init.d/$(PKG_NAME)
 endef
 
 $(eval $(call BuildPackage,$(PKG_NAME)))
