@@ -21,7 +21,7 @@ function gen_number {
 
 function play_sound {
   SONG=$1
-  madplay -a 6 -t $PLAY_DURATION $SONG > /dev/null 2>&1
+  madplay -a 10 -t $PLAY_DURATION $SONG > /dev/null 2>&1
 }
 
 
