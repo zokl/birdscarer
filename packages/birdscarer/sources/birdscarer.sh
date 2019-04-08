@@ -1,6 +1,7 @@
 #!/bin/bash
 
-HLASY_DIR="/tmp/spackoplas/hlasy/"
+APPNAME="$(basename $0 .sh)"
+HLASY_DIR="/usr/share/birdscarer/voices"
 NUM_SONGS=$(ls $HLASY_DIR/*.mp3 | wc -l)
 
 PLAY_MIN_TIME=180
@@ -24,8 +25,8 @@ do
   PLAY_DURATION="00:00:$(gen_number 15 40)"
   SONG_NUMBER=$(gen_number 1 $NUM_SONGS)
   SONG_FILE=$(ls $HLASY_DIR/$SONG_NUMBER*.mp3)
-  logger -t spackoplas "Prehravam soubor: $SONG_FILE"
-  logger -t spackoplas "Doba hrani: $PLAY_DURATION s"
+  logger -t $APPNAME "Voice file: $SONG_FILE"
+  logger -t $APPNAME "Play duration: $PLAY_DURATION s"
 
   play_sound $SONG_FILE
 

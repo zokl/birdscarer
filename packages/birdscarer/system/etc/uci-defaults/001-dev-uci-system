@@ -7,7 +7,7 @@
 
 attcontrol_adjust_system_settings() {
         uci batch <<-EOF
-                set system.@system[0].hostname='Spackoplas'
+                set system.@system[0].hostname='BirsScarer'
                 set system.@system[0].timezone='UTC'
                 set system.@system[0].ttylogin='1'
                 commit system
