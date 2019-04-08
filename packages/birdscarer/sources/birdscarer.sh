@@ -21,8 +21,8 @@ function set_gpio {
   GPIO_SYSFS="/sys/class/gpio"
 
   echo $GPIO_PIN > $GPIO_SYSFS/export
+  echo in > $GPIO_SYSFS/gpio$GPIO_PIN/direction
   echo 0 > $GPIO_SYSFS/gpio$GPIO_PIN/active_low
-  echo rising > $GPIO_SYSFS/gpio$GPIO_PIN/edge
 
 }
 
@@ -77,7 +77,7 @@ NUM_SONGS=$(ls $HLASY_DIR/*.mp3 | wc -l)
 	fi
 
 	  SLEEP_TIME=$(gen_number $PLAY_MIN_TIME $PLAY_MAX_TIME)
-	  logger -t spackoplas "Sleep time: $SLEEP_TIME sec."
+	  logger -t $APPNAME "Sleep time: $SLEEP_TIME sec."
 	  sleep $SLEEP_TIME
 
 	done
@@ -100,7 +100,7 @@ SONG_FILE="$HLASY_DIR/2_motak_luzni.mp3"
 	fi
 
           SLEEP_TIME=$(gen_number $PLAY_MIN_TIME $PLAY_MAX_TIME)
-          logger -t spackoplas "Sleep time: $SLEEP_TIME sec."
+          logger -t $APPNAME "Sleep time: $SLEEP_TIME sec."
 
           sleep $SLEEP_TIME
 
