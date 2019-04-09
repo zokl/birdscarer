@@ -16,7 +16,7 @@ define Package/$(PKG_NAME)
 endef
 
 define Package/$(PKG_NAME)/description
-Bird scarer system for OpenWRT and Olimex RT5350f EVB.
+Bird scarer system on OpenWRT and Olimex RT5350f EVB.
 endef
 
 define Build/Prepare
