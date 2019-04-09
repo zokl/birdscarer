@@ -51,7 +51,7 @@ function gen_number {
 
 function play_sound {
   SONG=$1
-  madplay -a 10 -t $PLAY_DURATION $SONG > /dev/null 2>&1
+  madplay -m -r -a 10 -t $PLAY_DURATION $SONG > /dev/null 2>&1
 }
 
 set_gpio
@@ -86,8 +86,8 @@ elif [ "$MODE" == "venda" ]; then
 
 logger -t $APPNAME "Mode VENDA"
 PLAY_MIN_TIME=20
-PLAY_MAX_TIME=120
-SONG_FILE="$HLASY_DIR/2_motak_luzni.mp3"
+PLAY_MAX_TIME=90
+SONG_FILE="$HLASY_DIR/4_motak_pochop_filter.mp3"
 
         while true
         do
