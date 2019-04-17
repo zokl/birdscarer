@@ -87,7 +87,7 @@ elif [ "$MODE" == "venda" ]; then
 logger -t $APPNAME "Mode VENDA"
 PLAY_MIN_TIME=20
 PLAY_MAX_TIME=90
-SONG_FILE="$HLASY_DIR/4_motak_pochop_filter.mp3"
+SONG_FILE="$HLASY_DIR/6_kane_rousna_amp.mp3"
 
         while true
         do
